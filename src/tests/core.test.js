@@ -1,5 +1,5 @@
 import { expect, test ,it, describe} from 'vitest'
-import { canDrive, getCoupons, calculateDiscount, validateUserInput, createProduct, isStrongPassword } from '../core.js'
+import { canDrive, getCoupons, calculateDiscount, validateUserInput, createProduct, isStrongPassword, fetchData } from '../core.js'
 
 
 test('should detect if a person can drive based on age and country', () => {
@@ -84,5 +84,12 @@ describe('isStrongPassword', () => {
     expect(isStrongPassword('nocapital1')).toBe(false)
     expect(isStrongPassword('NOLOWERCASE1')).toBe(false)
     expect(isStrongPassword('NoNumber')).toBe(false)
+  })
+})
+
+describe('fetchData', () => {
+  it('resolves with data', async () => {
+    const data = await fetchData()
+    expect(data).toEqual([1, 2, 3])
   })
 })

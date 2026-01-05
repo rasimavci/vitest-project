@@ -110,3 +110,12 @@ export function isStrongPassword(password) {
   // If all criteria are met, consider the password strong
   return true;
 }
+
+export function fetchData() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const data = [1, 2, 3];
+      resolve(data);
+    });
+  });
+}
