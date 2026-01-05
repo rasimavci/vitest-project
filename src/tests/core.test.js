@@ -1,5 +1,5 @@
-import { expect, test ,it, describe} from 'vitest'
-import { canDrive, getCoupons, calculateDiscount, validateUserInput, createProduct, isStrongPassword, fetchData } from '../core.js'
+import { expect, test ,it, describe, beforeEach} from 'vitest'
+import { canDrive, getCoupons, calculateDiscount, validateUserInput, createProduct, isStrongPassword, fetchData, Stack  } from '../core.js'
 
 
 test('should detect if a person can drive based on age and country', () => {
@@ -91,5 +91,25 @@ describe('fetchData', () => {
   it('resolves with data', async () => {
     const data = await fetchData()
     expect(data).toEqual([1, 2, 3])
+  })
+})
+
+describe('Stack', () => {
+  let stack
+
+  beforeEach(() => {
+    stack = new Stack()
+  })
+
+  it('pushes and pops items from stack', () => {
+    stack.push(1)
+    stack.push(2)
+
+    expect(stack.pop()).toBe(2)
+    expect(stack.size()).toBe(1)
+  })
+
+  it('throws error when popping empty stack', () => {
+    expect(() => stack.pop()).toThrow('Stack is empty')
   })
 })
