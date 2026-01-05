@@ -1,5 +1,5 @@
 import { expect, test ,it, describe} from 'vitest'
-import { canDrive, getCoupons, calculateDiscount, validateUserInput } from '../core.js'
+import { canDrive, getCoupons, calculateDiscount, validateUserInput, createProduct, isStrongPassword } from '../core.js'
 
 
 test('should detect if a person can drive based on age and country', () => {
@@ -54,5 +54,35 @@ describe('validateUserInput', () => {
 
     expect(result).toContain('Invalid username')
     expect(result).toContain('Invalid age')
+  })
+})
+
+describe('createProduct', () => {
+  it('fails when name is missing', () => {
+    const result = createProduct({ price: 10 })
+
+    expect(result.success).toBe(false)
+    expect(result.error.code).toBe('invalid_name')
+  })
+
+  it('succeeds with valid product', () => {
+    const result = createProduct({ name: 'Book', price: 10 })
+
+    expect(result).toMatchObject({
+      success: true,
+    })
+  })
+})
+
+describe('isStrongPassword', () => {
+  it('returns true for strong password', () => {
+    expect(isStrongPassword('Strong123')).toBe(true)
+  })
+
+  it('returns false for weak passwords', () => {
+    expect(isStrongPassword('short')).toBe(false)
+    expect(isStrongPassword('nocapital1')).toBe(false)
+    expect(isStrongPassword('NOLOWERCASE1')).toBe(false)
+    expect(isStrongPassword('NoNumber')).toBe(false)
   })
 })
